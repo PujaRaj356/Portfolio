@@ -1,0 +1,437 @@
+/* CARTFORGE NEO-BRUTALIST DESIGN SYSTEM */
+:root {
+  --font-display: 'Syne', 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Grotesk', monospace;
+
+  /* CARTFORGE LIGHT THEME (Warm Cream + Bold Electric Accents) */
+  --bg-main: #F6F2E9;
+  --bg-card: #FFFFFF;
+  --bg-cream: #FAF6F0;
+  --bg-dark-card: #0E0E0E;
+  
+  --accent-lime: #D4FF00;
+  --accent-coral: #FF6E59;
+  --accent-blue: #5CE1FF;
+  --accent-yellow: #FFDF00;
+  --accent-purple: #D8B4F8;
+  
+  --text-main: #0E0E0E;
+  --text-muted: #555555;
+  --border-main: #0E0E0E;
+  --border-subtle: #D0C8B8;
+  
+  --shadow-hard: 4px 4px 0px #0E0E0E;
+  --shadow-hard-sm: 2.5px 2.5px 0px #0E0E0E;
+  --shadow-hard-lg: 6px 6px 0px #0E0E0E;
+}
+
+[data-theme="dark"] {
+  --bg-main: #121212;
+  --bg-card: #1E1E1E;
+  --bg-cream: #282828;
+  --bg-dark-card: #F6F2E9;
+  
+  --accent-lime: #CCFF00;
+  --accent-coral: #FF6E59;
+  --accent-blue: #4CC3FF;
+  --accent-yellow: #FFE033;
+  --accent-purple: #D8B4F8;
+  
+  --text-main: #F6F2E9;
+  --text-muted: #B0B0B0;
+  --border-main: #F6F2E9;
+  --border-subtle: #444444;
+  
+  --shadow-hard: 4px 4px 0px #F6F2E9;
+  --shadow-hard-sm: 2.5px 2.5px 0px #F6F2E9;
+  --shadow-hard-lg: 6px 6px 0px #F6F2E9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(var(--border-subtle) 1.2px, transparent 1.2px),
+    linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 24px 24px, 120px 120px;
+  color: var(--text-main);
+  line-height: 1.55;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+[data-theme="dark"] body {
+  background-image: 
+    radial-gradient(rgba(255,255,255,0.12) 1.2px, transparent 1.2px),
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-main);
+  letter-spacing: -0.015em;
+}
+
+/* CONTAINER - WIDE EXPANDED LAYOUT TO FILL SIDES */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 28px;
+  position: relative;
+}
+
+/* SIDE MARGIN ARCHITECTURAL GUIDE LINES */
+.container::before, .container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--border-subtle) 15%, var(--border-subtle) 85%, transparent);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.container::before { left: 0; }
+.container::after { right: 0; }
+
+@media (max-width: 1120px) {
+  .container::before, .container::after {
+    display: none;
+  }
+}
+
+/* KEYFRAME ANIMATIONS & MICRO-INTERACTIONS */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 3px 3px 0px #0E0E0E;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 4px 4px 12px rgba(212, 255, 0, 0.6);
+    transform: scale(1.03);
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse-dot {
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* CARTFORGE CARD (Crisp 2.5px Black Outline + Hard Offset Shadow) */
+.cartforge-card {
+  background-color: var(--bg-card);
+  border: 2.5px solid var(--border-main);
+  box-shadow: var(--shadow-hard);
+  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.22s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cartforge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0px var(--border-main);
+}
+
+.cartforge-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-hard-sm);
+  transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.cartforge-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px var(--border-main);
+}
+
+.cartforge-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--border-main);
+}
+
+.cartforge-btn-black {
+  background-color: #0E0E0E;
+  color: #FFFFFF;
+}
+
+.cartforge-btn-black:hover {
+  background-color: #222222;
+  color: var(--accent-lime);
+}
+
+[data-theme="dark"] .cartforge-btn-black {
+  background-color: #F6F2E9;
+  color: #0E0E0E;
+}
+
+[data-theme="dark"] .cartforge-btn-black:hover {
+  background-color: #FFFFFF;
+  color: #0E0E0E;
+}
+
+.cartforge-btn-coral {
+  background-color: var(--accent-coral);
+  color: #FFFFFF;
+  border: 2.5px solid var(--border-main);
+}
+
+.cartforge-btn-coral:hover {
+  background-color: #ff5438;
+}
+
+.cartforge-btn-lime {
+  background-color: var(--accent-lime);
+  color: #0E0E0E;
+}
+
+.cartforge-btn-lime:hover {
+  background-color: #b8e600;
+}
+
+/* CARTFORGE FILTER TAG PILLS & TABS */
+.cartforge-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: var(--bg-card);
+  border: 2.5px solid var(--border-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  user-select: none;
+  box-shadow: 3px 3px 0px var(--border-main);
+  text-decoration: none !important;
+  outline: none;
+  border-radius: 4px;
+}
+
+.cartforge-pill:hover {
+  background-color: var(--accent-lime);
+  color: #0E0E0E !important;
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 0px var(--border-main);
+  text-decoration: none !important;
+}
+
+.cartforge-pill:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--border-main);
+}
+
+.cartforge-pill-active {
+  background-color: #0E0E0E !important;
+  color: #FFFFFF !important;
+  border-color: #0E0E0E !important;
+  box-shadow: 4px 4px 0px var(--accent-lime) !important;
+  text-decoration: none !important;
+}
+
+[data-theme="dark"] .cartforge-pill-active {
+  background-color: #F6F2E9 !important;
+  color: #0E0E0E !important;
+  border-color: #F6F2E9 !important;
+  box-shadow: 4px 4px 0px var(--accent-lime) !important;
+}
+
+/* FLOATING CYBER TASKBAR DOCK */
+.floating-dock-bar {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 3px solid #0E0E0E;
+  box-shadow: 6px 6px 0px #0E0E0E;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 95vw;
+  overflow-x: auto;
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .floating-dock-bar {
+  background-color: rgba(26, 26, 26, 0.95);
+  border-color: #F6F2E9;
+  box-shadow: 6px 6px 0px #F6F2E9;
+}
+
+.dock-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-main);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 0.8rem;
+  border-radius: 9999px;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 2px 2px 0px var(--border-main);
+  white-space: nowrap;
+}
+
+.dock-item:hover {
+  background-color: var(--accent-lime);
+  color: #0E0E0E !important;
+  transform: translateY(-2px);
+  box-shadow: 3.5px 3.5px 0px var(--border-main);
+  text-decoration: none !important;
+}
+
+.dock-item-active {
+  background-color: #0E0E0E !important;
+  color: #FFFFFF !important;
+  border-color: #0E0E0E !important;
+  box-shadow: 2.5px 2.5px 0px var(--accent-lime) !important;
+}
+
+[data-theme="dark"] .dock-item-active {
+  background-color: #F6F2E9 !important;
+  color: #0E0E0E !important;
+}
+
+/* CIRCULAR STICKER BADGE */
+.cartforge-sticker {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-color: var(--accent-coral);
+  border: 2.5px solid var(--border-main);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.75rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-hard-sm);
+  transform: rotate(-10deg);
+  transition: transform 0.25s ease;
+  user-select: none;
+}
+
+.cartforge-sticker:hover {
+  transform: rotate(0deg) scale(1.06);
+}
+
+/* SEARCH INPUT BOX */
+.cartforge-search-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  background-color: #FFFFFF;
+  border: 2.5px solid var(--border-main);
+  padding: 8px 14px;
+  box-shadow: 2.5px 2.5px 0px var(--border-main);
+  transition: all 0.18s ease;
+}
+
+.cartforge-search-box:focus-within {
+  box-shadow: 4px 4px 0px var(--accent-lime);
+  border-color: var(--border-main);
+}
+
+.cartforge-search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0E0E0E;
+}
+
+.cartforge-search-box input::placeholder {
+  color: #777777;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--border-main); border-radius: 0px; }
+
+/* SIDE MARGIN RAILS RESPONSIVE RULE */
+@media (max-width: 1280px) {
+  .desktop-side-rail {
+    display: none !important;
+  }
+}
+
+/* NAV MEDIA QUERY */
+@media (max-width: 840px) {
+  .desktop-nav {
+    display: none !important;
+  }
+}
